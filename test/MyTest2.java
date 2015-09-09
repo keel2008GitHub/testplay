@@ -1,7 +1,17 @@
 import controllers.MyController2;
+import controllers.routes;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import play.db.jpa.JPA;
+import play.db.jpa.JPAPlugin;
 import play.mvc.Result;
+import play.test.FakeApplication;
 import play.test.FakeRequest;
+import play.test.Helpers;
+import scala.Option;
+
+import javax.persistence.EntityManager;
 
 import static play.test.Helpers.*;
 
@@ -13,22 +23,34 @@ import static play.test.Helpers.GET;
  */
 public class MyTest2 {
 
-    @Test
-    public void sc2() {
-        System.out.println("hello!2222");
+    private EntityManager em;
+
+    @Before
+    public void setUp() {
+        FakeApplication app = Helpers.fakeApplication();
+        Helpers.start(app);
+        Option<JPAPlugin> jpaPlugin = app.getWrappedApplication().plugin(JPAPlugin.class);
+        em = jpaPlugin.get().em("default");
+        JPA.bindForCurrentThread(em);
     }
 
-
-    @Test
-    public void sc3() {
-        Result result = MyController2.index2();
-
-        System.out.println(result.toString());
+    @After
+    public void tearDown() {
+        JPA.bindForCurrentThread(null);
+        em.close();
     }
 
     @Test
     public void sc4() {
-        System.out.println("helloworld");
+        Result result = callAction(
+                controllers.routes.ref.MyController2.index(),
+                new FakeRequest(GET, "/")
+        );
+
+        System.out.println("");
+
+
+        System.out.println(contentAsString(result));
     }
 
 }

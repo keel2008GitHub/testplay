@@ -21,17 +21,17 @@ import static org.junit.Assert.*;
 
 public class MyTest {
 
-    @Test
-    public void sc2() {
-        int a = 1 + 1;
-        System.out.println("hello world.");
-        assertEquals(2, a);
-    }
-
-    @Test
-    public void sc3() {
-        int a = 1 + 1;
-        System.out.println("hello world.");
-        assertEquals(2, a);
-    }
+//    @Test
+//    public void sc2() {
+//        int a = 1 + 1;
+//        System.out.println("hello world.");
+//        assertEquals(2, a);
+//    }
+//
+//    @Test
+//    public void sc3() {
+//        int a = 1 + 1;
+//        System.out.println("hello world.");
+//        assertEquals(2, a);
+//    }
 }

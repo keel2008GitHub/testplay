@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.libs.Json;
+import play.mvc.Controller;
 import play.mvc.Result;
 import po.WmTest;
 import service.WmTestService;
@@ -17,7 +18,7 @@ import static play.mvc.Results.ok;
 /**
  * Created by keel47 on 2015/9/5.
  */
-public class MyController2 {
+public class MyController2 extends Controller {
     
     private static Gson gson = new Gson();
 
@@ -31,22 +32,17 @@ public class MyController2 {
         return ok(json);
     }
 
+
+    @Transactional
     public static Result index2() {
 
         System.out.println("do the MyController2 index2");
 
-        ObjectNode result = Json.newObject();
+        WmTestService service = new WmTestService();
 
-        result.put("exampleField1", "foobar");
-        result.put("exampleField2", "Hello world!");
+        String json = gson.toJson(service.getById(1));
 
-        Map<String,String> map= new HashMap<String,String>();
-        map.put("name","wangmeng");
-        map.put("age","35");
-
-        String jsonString = gson.toJson(map);
-
-        return ok(jsonString);
+        return ok(json);
     }
 
 }
